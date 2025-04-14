@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Visualización - Inseguridad Alimentaria</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visualización ABM</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <nav>
+    <button onclick="goToPage('page1')">Equipo</button>
+    <button onclick="goToPage('page2')">Descripción</button>
+    <button onclick="goToPage('page3')">Visualización</button>
+  </nav>
 
-    <nav>
-        <button onclick="goToPage('page1')">Equipo</button>
-        <button onclick="goToPage('page2')">Descripción</button>
-        <button onclick="goToPage('page3')">Visualización</button>
-    </nav>
+  <div id="page1" class="page active">
+    <h1>Equipo del Proyecto</h1>
+    <p>Este espacio describe al equipo responsable del desarrollo del modelo y la visualización.</p>
+  </div>
 
-    <!-- Página 1 - Equipo -->
-    <section id="page1" class="page active">
-        <h1>Equipo del Proyecto</h1>
-        <p>Este espacio mostrará la información del equipo. Aquí puedes incluir nombres, roles, universidad, etc.</p>
-    </section>
+  <div id="page2" class="page">
+    <h1>Descripción del Proyecto</h1>
+    <p>Este proyecto explora la inseguridad alimentaria y del hogar en Filadelfia mediante un modelo basado en agentes y visualización interactiva.</p>
+  </div>
 
-    <!-- Página 2 - Descripción -->
-    <section id="page2" class="page">
-        <h1>Descripción del Proyecto</h1>
-        <p>Este proyecto tiene como objetivo mostrar una visualización interactiva sobre la inseguridad alimentaria.</p>
-        <p>Aquí irá un texto más detallado con gráficos o imágenes si lo deseas.</p>
-    </section>
+  <div id="page3" class="page">
+    <h1>Mapa de Tractos Censales - Filadelfia</h1>
+    <div id="map"></div>
+    <div class="barras">
+      <div class="label">Inseguridad Alimentaria</div>
+      <div class="progress-bar">
+        <div id="bar1" class="bar"></div>
+      </div>
+      <div class="label">Inseguridad de Vivienda</div>
+      <div class="progress-bar">
+        <div id="bar2" class="bar"></div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Página 3 - Visualización -->
-    <section id="page3" class="page">
-        <h1>Visualización de Inseguridad Alimentaria</h1>
-        <div id="map"></div>
-        <div class="bars-container">
-            <div>
-                <label>Inseguridad Alimentaria</label>
-                <div class="bar-background"><div id="bar1" class="bar-fill"></div></div>
-            </div>
-            <div>
-                <label>Inseguridad de Vivienda</label>
-                <div class="bar-background"><div id="bar2" class="bar-fill"></div></div>
-            </div>
-        </div>
-    </section>
+  <!-- Librerías necesarias -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/topojson@3"></script>
 
-    <!-- Enlace a script al final -->
-    <script src="script.js"></script>
-
+  <!-- Script principal -->
+  <script src="script.js"></script>
 </body>
 </html>
 
