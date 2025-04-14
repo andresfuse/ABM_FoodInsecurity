@@ -1,4 +1,3 @@
-
 function goToPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -17,9 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const projection = d3.geoMercator().scale(50000).center([-75.1652, 39.9526]).translate([width/2, height/2]);
   const path = d3.geoPath().projection(projection);
 
-  d3.json("tracts.json").then(function(data) {
+  Promise.all([
+    d3.json("Census_Tracts_2020.json")
+  ]).then(([topoData]) => {
+    const geoData = topojson.feature(topoData, topoData.objects.Census_Tracts_2020);
+
     svg.selectAll("path")
-       .data(data.features)
+       .data(geoData.features)
        .enter()
        .append("path")
        .attr("d", path)
@@ -33,3 +36,4 @@ document.addEventListener("DOMContentLoaded", function () {
        });
   });
 });
+
