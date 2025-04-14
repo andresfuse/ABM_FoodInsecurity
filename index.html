@@ -1,39 +1,50 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Visualización</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Visualización - Inseguridad Alimentaria</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <section id="page1" class="page active">
-    <h1>Equipo del Proyecto</h1>
-    <p>Descripción del proyecto. Información general y objetivos.</p>
-    <button onclick="goToPage('page2')">Siguiente</button>
-  </section>
 
-  <section id="page2" class="page">
-    <h2>Imágenes y Texto</h2>
-    <p>Información complementaria sobre el contexto del análisis.</p>
-    <button onclick="goToPage('page3')">Siguiente</button>
-  </section>
+    <nav>
+        <button onclick="goToPage('page1')">Equipo</button>
+        <button onclick="goToPage('page2')">Descripción</button>
+        <button onclick="goToPage('page3')">Visualización</button>
+    </nav>
 
-  <section id="page3" class="page">
-    <div id="map"></div>
-    <div class="gauge-container">
-      <div class="gauge" id="gauge1">
-        <span>Indicador 1</span>
-        <div class="bar" id="bar1"></div>
-      </div>
-      <div class="gauge" id="gauge2">
-        <span>Indicador 2</span>
-        <div class="bar" id="bar2"></div>
-      </div>
-    </div>
-  </section>
+    <!-- Página 1 - Equipo -->
+    <section id="page1" class="page active">
+        <h1>Equipo del Proyecto</h1>
+        <p>Este espacio mostrará la información del equipo. Aquí puedes incluir nombres, roles, universidad, etc.</p>
+    </section>
 
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="script.js"></script>
+    <!-- Página 2 - Descripción -->
+    <section id="page2" class="page">
+        <h1>Descripción del Proyecto</h1>
+        <p>Este proyecto tiene como objetivo mostrar una visualización interactiva sobre la inseguridad alimentaria.</p>
+        <p>Aquí irá un texto más detallado con gráficos o imágenes si lo deseas.</p>
+    </section>
+
+    <!-- Página 3 - Visualización -->
+    <section id="page3" class="page">
+        <h1>Visualización de Inseguridad Alimentaria</h1>
+        <div id="map"></div>
+        <div class="bars-container">
+            <div>
+                <label>Inseguridad Alimentaria</label>
+                <div class="bar-background"><div id="bar1" class="bar-fill"></div></div>
+            </div>
+            <div>
+                <label>Inseguridad de Vivienda</label>
+                <div class="bar-background"><div id="bar2" class="bar-fill"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enlace a script al final -->
+    <script src="script.js"></script>
+
 </body>
 </html>
+
