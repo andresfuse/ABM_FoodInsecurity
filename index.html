@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualization</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- D3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3"></script>
+</head>
+<body>
+  <header>
+    <h1>Visualization</h1>
+  </header>
+  <nav>
+    <button class="tab-button active" data-tab="tab1">Tab 1</button>
+    <button class="tab-button" data-tab="tab2">Tab 2</button>
+    <button class="tab-button" data-tab="tab3">Tab 3</button>
+  </nav>
+  <main>
+    <section id="tab1" class="tab-content active">
+      <div class="column">
+        <div class="map-section">
+          <p class="map-instruction-top">
+            In this page of the viewer you can interact with the map and visualize different variables and see their geographical distribution. You can interact with the tracts and see updated distribution of the graphs in the right based on that.
+          </p>
+          <!-- Left column: D3 GeoJSON map -->
+          <svg id="map"></svg>
+          <label for="layerSelect" class="combo-label">
+            Variable
+          </label>
+          <select id="layerSelect" class="combo-box">
+          </select>
+          <p class="map-instruction-bottom">
+            The color scale on the map reflects the level of the selected variable. The more yellow the color the lower the value of the selected variable and the more red the color the higher the value of the selected variable.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <!-- Right column content for Tab 1 -->
+        <div class="speedometers-section">
+          <p class="section-instruction">These speedometers describe the values for food insecurity, household insecurity and both at the same time for the geographical level chosen on the map (city vs. tract).</p>
+          <div class="speedometers-container">
+            <div class="speedometer-item">
+              <label class="combo-label">Avg. food insecurity (%)</label>
+              <svg id="speedometer1"></svg>
+            </div>
+            <div class="speedometer-item">
+              <label class="combo-label">Avg. house insecurity (%)</label>  
+              <svg id="speedometer2"></svg>
+            </div>
+            <div class="speedometer-item">
+              <label class="combo-label">Avg. food and house insecurity (%)</label>
+              <svg id="speedometer3"></svg>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-section">
+          <p class="section-instruction">The Duncan Dissimilarity Index describes the degree of disparity in the distribution of two groups in the same geographical area. The closer the index to zero, the more evenly distributed they are, and the closer to 1, the more segregated or less evenly distributed they are.</p>
+          <svg id="bar-chart"></svg>
+        </div>
+      </div>
+    </section>
+    <section id="tab2" class="tab-content">
+      <div class="column">
+        <!-- Left column -->
+        <div class="content-section">
+          <p class="section-instruction">In this page you can explore the results of different scenarios disaggregated into different stakeholder groups and the change in estimated cost compared to the baseline. In the table below you can see a description of the different scenarios and then choose which scenario to explore.</p>
+          <div class="scenarios-table-wrapper">
+            <table class="scenarios-table">
+              <thead>
+                <tr>
+                  <th>Scenario</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr><td>A</td><td>In this scenario, food stamps are turned off for all beneficiaries from the beginning of the simulation.</td></tr>
+              <tr><td>B</td><td>This is the baseline scenario that replicates the city's current behavior in terms of food and household insecurity.</td></tr>
+              <tr><td>C</td><td>In this scenario, the income needed to be eligible for food stamps is decreased by 20%. This favors the chances of being eligible for each household.</td></tr>
+              <tr><td>D</td><td>In this scenario the stamp calculation base is increased by 20% resulting in a higher overall stamp value for all beneficiaries.</td></tr>
+              <tr><td>C + D</td><td>This scenario combines increasing income eligibility by 20% and the monetary base by 20% for the calculation of food stamps.</td></tr>
+              <tr><td>E</td><td>In this scenario, the importance of the eligibility criterion in the calculation of the monetary base of the stamp is increased by 20%.</td></tr>
+              <tr><td>C + D + E</td><td>This scenario combines increasing income eligibility by 20%, the monetary base by 20% and by 20% the importance of the eligibility criteria for the calculation of food stamps.</td></tr>
+              <tr><td>D + E</td><td>This scenario combines increasing the monetary base by 20% and by 20% the importance of the eligibility criteria for the calculation of food stamps.</td></tr>
+              <tr><td>F</td><td>NA</td></tr>
+              <tr><td>C + F</td><td>This scenario combines increasing income eligibility by 20% and decreasing the monetary base by 20% for the calculation of food stamps.</td></tr>
+              <tr><td>G</td><td>NA</td></tr>
+              <tr><td>F + G</td><td>This scenario combines decreasing income eligibility by 20% and the monetary base by 20% for the calculation of food stamps.</td></tr>            </tbody>
+            </table>
+          </div>
+          <div class="selectors-container">
+            <div class="selector-group">
+              <label for="scenarioSelect" class="combo-label">Scenario</label>
+              <select id="scenarioSelect" class="combo-box">
+                <option value="A">Scenario A</option>
+                <option value="B">Scenario B</option>
+                <option value="C">Scenario C</option>
+                <option value="D">Scenario D</option>
+                <option value="CD">Scenario C + D</option>
+                <option value="E">Scenario E</option>
+                <option value="CDE">Scenario C + D + E</option>
+                <option value="DE">Scenario D + E</option>
+                <option value="F">Scenario F</option>
+                <option value="CF">Scenario C + F</option>
+                <option value="G">Scenario G</option>
+                <option value="FG">Scenario F + G</option>
+              </select>
+            </div>
+
+            <div class="selector-group">
+              <label for="monthSelect" class="combo-label">Month</label>
+              <select id="monthSelect" class="combo-box">
+                <option value="M7">M7</option>
+                <option value="M8">M8</option>
+                <option value="M9">M9</option>
+                <option value="M10">M10</option>
+                <option value="M11">M11</option>
+                <option value="M12">M12</option>
+                <option value="M13">M13</option>
+                <option value="M14">M14</option>
+                <option value="M15">M15</option>
+                <option value="M16">M16</option>
+                <option value="M17">M17</option>
+                <option value="M18">M18</option>
+                <option value="M19">M19</option>
+                <option value="M20">M20</option>
+                <option value="M21">M21</option>
+                <option value="M22">M22</option>
+                <option value="M23">M23</option>
+                <option value="M24">M24</option>
+              </select>
+            </div>
+
+            <div class="selector-group">
+              <label for="variableSelect" class="combo-label">Variable</label>
+              <select id="variableSelect" class="combo-box">
+                <option value="foodStamps">Food stamps beneficiaries</option>
+                <option value="raceEthnicity">Race/ethnicity</option>
+                <option value="incomeThresholds">Income thresholds</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <!-- Right column -->
+        <div class="content-section">
+          <svg id="boxplot"></svg>
+        </div>
+        <div class="content-section">
+          <div class="speedometers-container">
+            <div class="speedometer-item">
+              <label class="combo-label">Food insecurity change (%)</label>
+              <svg id="speedometer-fs"></svg>
+            </div>
+            <div class="speedometer-item">
+              <label class="combo-label">Food stamps beneficiaries change (%)</label>
+              <svg id="speedometer-beneficiaries"></svg>
+            </div>
+            <div class="speedometer-item">
+              <label class="combo-label">Budget change (%)</label>
+              <svg id="speedometer-stamps"></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="tab3" class="tab-content">
+      <div class="column">
+        <!-- Left column -->
+        <div class="content-section">
+          <p class="section-instruction">In this page you can compare different metrics between scenarios.</p>
+          <div class="scenarios-table-wrapper">
+            <table class="scenarios-table">
+              <thead>
+                <tr>
+                  <th>Scenario</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr><td>A</td><td>In this scenario, food stamps are turned off for all beneficiaries from the beginning of the simulation.</td></tr>
+              <tr><td>B</td><td>This is the baseline scenario that replicates the city's current behavior in terms of food and household insecurity.</td></tr>
+              <tr><td>C</td><td>In this scenario, the income needed to be eligible for food stamps is decreased by 20%. This favors the chances of being eligible for each household.</td></tr>
+              <tr><td>D</td><td>In this scenario the stamp calculation base is increased by 20% resulting in a higher overall stamp value for all beneficiaries.</td></tr>
+              <tr><td>C + D</td><td>This scenario combines increasing income eligibility by 20% and the monetary base by 20% for the calculation of food stamps.</td></tr>
+              <tr><td>E</td><td>In this scenario, the importance of the eligibility criterion in the calculation of the monetary base of the stamp is increased by 20%.</td></tr>
+              <tr><td>C + D + E</td><td>This scenario combines increasing income eligibility by 20%, the monetary base by 20% and by 20% the importance of the eligibility criteria for the calculation of food stamps.</td></tr>
+              <tr><td>D + E</td><td>This scenario combines increasing the monetary base by 20% and by 20% the importance of the eligibility criteria for the calculation of food stamps.</td></tr>
+              <tr><td>F</td><td>NA</td></tr>
+              <tr><td>C + F</td><td>This scenario combines increasing income eligibility by 20% and decreasing the monetary base by 20% for the calculation of food stamps.</td></tr>
+              <tr><td>G</td><td>NA</td></tr>
+              <tr><td>F + G</td><td>This scenario combines decreasing income eligibility by 20% and the monetary base by 20% for the calculation of food stamps.</td></tr>            </tbody>
+            </table>
+          </div>
+
+          <div class="selectors-container">
+            <div class="selector-group">
+              <label for="scenarioSelect3" class="combo-label">Scenario (multiple choice)
+                <span style="cursor:help; color:#0074D9; font-weight:bold;" title="Hold Ctrl (Windows) or Cmd (Mac) to select more than one scenario.">[?]</span>
+              </label>
+              <select id="scenarioSelect3" class="combo-box" multiple style="height: 68px;">
+                <option value="A">Scenario A</option>
+                <option value="B">Scenario B</option>
+                <option value="C">Scenario C</option>
+                <option value="D">Scenario D</option>
+                <option value="CD">Scenario C + D</option>
+                <option value="E">Scenario E</option>
+                <option value="CDE">Scenario C + D + E</option>
+                <option value="DE">Scenario D + E</option>
+                <option value="F">Scenario F</option>
+                <option value="CF">Scenario C + F</option>
+                <option value="G">Scenario G</option>
+                <option value="FG">Scenario F + G</option>
+              </select>
+            </div>
+
+            <div class="selector-group">
+              <label for="variableSelect3" class="combo-label">Variable</label>              <select id="variableSelect3" class="combo-box">
+                <option value="foodInsecurity">Food insecurity</option>
+                <option value="houseInsecurity">House insecurity</option>
+                <option value="ddWhiteAsian">DD White vs Asian</option>
+                <option value="ddWhiteAfrican">DD White vs African American</option>
+                <option value="ddWhiteHispanic">DD White vs Hispanic</option>
+                <option value="ddWhiteOthers">DD White vs Others</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <!-- Right column -->
+        <div class="content-section">
+          <svg id="simulator"></svg>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <!-- Footer content goes here -->
+    <p>© 2025 Your Company</p>
+  </footer>
+  <script src="script.js"></script>
+  <script src="tab1.js"></script>
+  <script src="tab2.js"></script>
+  <script src="tab3.js"></script>
+</body>
+</html>

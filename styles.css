@@ -1,0 +1,282 @@
+/* Reset default styles */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; overflow-x: hidden; }
+body { font-family: Arial, sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+header { background-color: #f4f4f4; padding: 15px; text-align: center; }
+nav { display: flex; background-color: #333; width: 100%; }
+nav button { flex: 1; padding: 10px; background: none; border: none; color: white; cursor: pointer; font-size: 15px; }
+nav button:hover, nav button.active { background-color: #555; }
+main { 
+  flex: 1; 
+  width: 100%; 
+  padding: 15px; 
+}
+
+/* Tab content styles */
+.tab-content { 
+  display: none; 
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0px;
+}
+
+.tab-content.active { 
+  display: flex; 
+}
+
+/* Two-column layout for all tabs */
+.tab-content .column { 
+  flex: 1; 
+  min-width: 250px; 
+  padding: 15px; 
+}
+
+/* Map container */
+.map-section {
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* Map instructions */
+.map-instruction-top,
+.map-instruction-bottom {
+  line-height: 1.5;
+  color: #333;
+  font-size: 0.95rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+/* Combo label and select styling */
+.combo-label {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+.combo-box {
+  display: block;
+  margin: 0 auto 10px;
+  padding: 5px;
+  font-size: 1rem;
+  max-width: 300px;
+}
+
+/* SVG map container */
+#map { 
+  width: 90%; 
+  height: 550px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  display: block;
+}
+
+/* Footer styles */
+footer { background-color: #f4f4f4; text-align: center; padding: 8px; width: 100%; }
+
+/* Speedometer styles */
+
+.gauge-background {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+
+.gauge-fill {
+  stroke: #666;
+  stroke-width: 1px;
+}
+
+/* Speedometers section */
+.speedometers-section {
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.section-instruction {
+  line-height: 1.5;
+  color: #333;
+  font-size: 0.95rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+.speedometers-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.speedometer-item {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#speedometer1 { height: 110px; }
+#speedometer2 { height: 110px; }
+#speedometer3 { height: 110px; }
+#speedometer-fs { height: 110px; }
+#speedometer-beneficiaries { height: 110px; }
+#speedometer-stamps { height: 110px; }
+
+/* Make the third speedometer span the full width and center it */
+.speedometer-item:nth-child(3) {
+  grid-column: 1 / -1;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.speedometer-item .combo-label {
+  margin-top: 0;
+  text-align: center;
+}
+
+/* Bottom section for future content */
+.bottom-section {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  min-height: 200px;
+  margin-top: 20px;
+}
+
+/* Bar chart styles */
+#bar-chart {
+  width: 90%;
+  height: 250px;
+  background-color: white;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  display: block;
+}
+
+.bar-label {
+  font-size: 12px;
+  fill: #333;
+}
+
+.bar {
+  fill: steelblue;
+  transition: fill 0.3s;
+}
+
+.bar:hover {
+  fill: #2a5b8b;
+}
+
+/* Content section styles */
+.content-section {
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* Scenarios table styles */
+.scenarios-table-wrapper {
+  margin: 20px 0;
+  width: 100%;
+  overflow-x: auto;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 6px;
+}
+
+.scenarios-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.scenarios-table th,
+.scenarios-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;
+}
+
+.scenarios-table th:first-child,
+.scenarios-table td:first-child {
+  width: 100px;
+}
+
+.scenarios-table th:last-child,
+.scenarios-table td:last-child {
+  width: calc(100% - 100px);
+}
+
+.scenarios-table thead th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+}
+
+.scenarios-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.scenarios-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.selectors-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.selector-group {
+  text-align: center;
+  flex: 1;
+}
+
+.selector-group .combo-box {
+  width: 100%;
+  max-width: none;
+}
+
+/* Boxplot container */
+#boxplot {
+  width: 90%;
+  height: 400px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  display: block;
+}
+
+/* Simulator container */
+#simulator {
+  width: 90%;
+  height: 400px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  display: block;
+}
