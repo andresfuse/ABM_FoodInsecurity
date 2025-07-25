@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .call(legendAxis);
   let featuresData = [];
   let globalMeans = {};
+  let propertyMaxValues = {};  // Store max values for each property
   const pi = Math.PI;
 
   // Function to calculate mean of values
@@ -258,9 +259,14 @@ document.addEventListener('DOMContentLoaded', () => {
   d3.json('data/ct2020.geojson').then(data => {
     featuresData = data.features;
     
-    // Calculate max values for each speedometer and global means
+    // Calculate max values for each property, speedometer values and global means
+    Object.keys(propertyMapping).forEach(prop => {
+      propertyMaxValues[prop] = d3.max(featuresData, d => d.properties[prop]) || 100;
+    });
+
+    // Set up speedometers
     speedometers.forEach(speedometer => {
-      speedometer.maxValue = d3.max(featuresData, d => d.properties[speedometer.property]) || 100;
+      speedometer.maxValue = propertyMaxValues[speedometer.property];
       // Calculate global mean for each speedometer property
       globalMeans[speedometer.property] = calculateMean(featuresData.map(d => d.properties[speedometer.property]));
       createSpeedometer(speedometer);
@@ -333,7 +339,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }).catch(err => console.error('Error loading GeoJSON:', err));
 
   function updateChoropleth(property) {
-    const colorScale = d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 100]);
+    const maxValue = propertyMaxValues[property];
+    const colorScale = d3.scaleSequential(d3.interpolateYlOrRd).domain([0, maxValue]);
+    
+    // Update legend axis with new domain
+    legendScale.domain([0, maxValue]);
+    svg.select('.legend.axis')
+      .transition()
+      .duration(500)
+      .call(d3.axisLeft(legendScale).ticks(5));
+
     svg.selectAll('path.feature')
       .transition().duration(500)
       .attr('fill', d => {
